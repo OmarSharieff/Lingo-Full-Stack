@@ -18,7 +18,7 @@ const main = async()=> {
     //seed script removes fields of the table, it doesnt remove the tables.
     await db.delete(schema.courses);
     await db.delete(schema.userProgress);
-    
+
     await db.insert(schema.courses).values([
       {
         id: 1,
