@@ -8,6 +8,7 @@ import { Challenge } from "./challenge";
 import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
+import { reduceHearts } from "@/actions/user-progress";
 
 type Props = {
   initialPercentage: number;
@@ -101,7 +102,22 @@ const [activeIndex, setActiveIndex] = useState(()=> {
         .catch(()=> toast.error("Something went wrong. Please try again."))
       });
     } else {
-      console.error("incorrect option!");
+      startTransition(()=> {
+        reduceHearts(challenge.id)
+        .then((response)=> {
+          if(response?.error === "hearts") {
+            console.error("Missing hearts");
+            return;
+          }
+
+          setStatus("wrong");
+
+          if (!response?.error) {
+            setHearts((prev)=> Math.max(prev - 1, 0));
+          }
+        })
+        .catch(() => toast.error("Something went wrong. Please try again."))
+      });
     }
   }
 
@@ -129,7 +145,7 @@ const [activeIndex, setActiveIndex] = useState(()=> {
               onSelect={onSelect}
               status={status}
               selectedOption={selectedOption}
-              disabled={false}
+              disabled={pending}
               type={challenge.type}
             />
           </div>
@@ -137,7 +153,7 @@ const [activeIndex, setActiveIndex] = useState(()=> {
       </div>
     </div>
     <Footer
-      disabled={!selectedOption}
+      disabled={pending || !selectedOption}
       status={status}
       onCheck={onContinue}
     />
