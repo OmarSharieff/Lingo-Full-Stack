@@ -9,7 +9,7 @@ type Props = {
   //"completed" when the entire lesson is finished.
   status: "correct" | "wrong" | "none" | "completed"; 
   disabled?: boolean;
-  lessonId?: boolean;
+  lessonId?: number;
 }
 
 export const Footer = ({

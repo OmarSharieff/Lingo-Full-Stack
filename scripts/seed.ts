@@ -190,6 +190,30 @@ const main = async()=> {
       },
     ]);
 
+    await db.insert(schema.challenges).values([
+      {
+        id: 4,
+        lessonId: 2, //Verbs
+        type: "SELECT",
+        order: 1,
+        question: 'Which one of these is "The Man"?'
+      },
+      {
+        id: 5,
+        lessonId: 2, //Verbs
+        type: "ASSIST",
+        order: 2,
+        question: '"The Man"'
+      },
+      {
+        id: 6,
+        lessonId: 2, //Verbs
+        type: "SELECT",
+        order: 3,
+        question: 'Which one of these is "The Robot"?'
+      },
+    ]);
+
     console.log("Seeding finshed");
   } catch(error) {
     console.error(error);
