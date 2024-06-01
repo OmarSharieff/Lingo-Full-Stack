@@ -3,13 +3,13 @@
 import { refillHearts } from "@/actions/user-progress";
 import { createStripeUrl } from "@/actions/user-subscription";
 import { Button } from "@/components/ui/button";
+import { POINTS_TO_REFILL } from "@/constants";
 import { create } from "domain";
 import Image from "next/image";
 import { useTransition } from "react";
 import { start } from "repl";
 import { toast } from "sonner";
 
-const POINTS_TO_REFILL = 10;
 
 type Props = {
   hearts: number;
